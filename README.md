@@ -3,7 +3,9 @@ Simple catalog-shop example.
 Каталог-магазин, шаблон без дизайна.
 
 Пример:http://185.41.187.126:83/
-
+Вход в админ панель:
+admin@admin.net
+пароль: admin
 Хостинг: Windows server 2012 R2 
 internet information services 8.5
 
