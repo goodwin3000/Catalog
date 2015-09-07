@@ -1,0 +1,121 @@
+﻿
+<div id="EditProductDialog" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Редактировать товар</h4>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <div class="form-group">
+                        <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                        <div class="col-md-8">
+                            <span>Название товара</span>
+                            <input id="edprodName" name="ProductName" type="text" placeholder="Название товара" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-phone-square bigicon"></i></span>
+                        <div class="col-md-8">
+                            <span>Категория</span>
+                            <div id="CategoryDropDownIdEdit">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                        <div class="col-md-8">
+                            <span>Описание</span>
+                            <input id="edprodDesc" name="ProductDescription" type="text" placeholder="Описание товара" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-envelope-o bigicon"></i></span>
+                        <div class="col-md-8">
+                            <span>Адресс картинки</span>
+                            <input id="edprodPic" name="ProductPictureUrl" type="text" placeholder="Адрес картинки" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-phone-square bigicon"></i></span>
+                        <div class="col-md-8">
+                            <span>Цена</span>
+                            <input id="edprodPrice" name="ProductPrice" type="text" placeholder="Цена товара" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-phone-square bigicon"></i></span>
+                        <div class="col-md-8">
+                            <span>Id</span>
+                            <input id="edprodId" name="ProductPrice" type="text" placeholder="Id" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-phone-square bigicon"></i></span>
+                        <div class="col-md-8">
+                            <span>Опубликовать</span>
+                            <input id="edprodPublishFlag" name="Published" type="checkbox" value="">
+                        </div>
+                    </div> 
+                    
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                <button type="button" onclick="EditProduct()" class="btn btn-primary">Сохранить</button>
+            </div>
+            <div>
+                <span id="ProductResult"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function ShowEditProductDialog(ProductName, CategoryName, ProductDescription, ProductPrice, ProductPictureUrl, Published, ProductId)
+    {
+        
+        $("#edprodName").val(ProductName);
+        $("#edprodDesc").val(ProductDescription);
+        $("#edprodPic").val(ProductPictureUrl);
+        $("#edprodPrice").val(ProductPrice);
+        $("#edprodId").val(ProductId);        
+        $("#edprodPublishFlag").prop("checked", Published);
+        $("#CategoryDropDownIdEdit").load('/Admin/CategoryDropDownList?todo=CategorySelectorEdit&selectedValue=' + $("#catNameSpan").text());
+       
+       $("#EditProductDialog").modal('show');
+        return false;
+   }
+   function EditProduct()
+   {
+       var ProductName = $("#edprodName").val();      
+       var ProductDescription = $("#edprodDesc").val();
+       var ProductPictureUrl = $("#edprodPic").val();
+       var ProductPrice = $("#edprodPrice").val();
+       var Published = $("#edprodPublishFlag").prop("checked");
+       var CategoryLinkName = $('select[name=CategorySelectorEdit] option:selected').val();
+       var ProductId = $("#edprodId").val();
+       var Product =
+           {
+               "ProductName": ProductName,
+               "CategoryLinkName": CategoryLinkName,
+               "ProductDescription": ProductDescription,
+               "ProductPictureUrl": ProductPictureUrl,
+               "ProductPrice":ProductPrice,
+               "Published": Published,
+               "ProductId": ProductId
+           }
+       console.log(Product);
+
+       $.post('@Url.Action("EditProduct", "Admin")', Product,
+           function (data)
+           {
+               console.log("Done");
+               $("#ProductTable").load('/Admin/GetProductsByCatName?id=' +CategoryLinkName);
+               $("#EditProductDialog").modal('hide');
+           })
+   }
+</script>

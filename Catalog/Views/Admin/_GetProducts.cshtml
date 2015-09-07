@@ -1,0 +1,64 @@
+﻿@model IEnumerable<CatalogLib.Models.Product>
+<h2>Товары категории <span id="catNameSpan">@ViewBag.cat</span></h2>
+@if (Model == null)
+{
+    return;
+}
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Название товара</th>
+                <th>Категория товара</th>
+                <th>Описание товара</th>
+                <th>Цена товара</th>
+                <th>Адрес картинки товара</th>
+                <th>Изменить</th>
+                <th>удалить</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.Category.CategoryName</td>
+                    <td>@item.ProductDescription</td>
+                    <td>@item.ProductPrice</td>
+                    <td>@item.ProductPictureUrl</td>
+                    <td>
+                        <button type="button" onclick="ShowEditProductDialog(
+                                '@item.ProductName','@item.CategoryLinkName', '@item.ProductDescription','@item.ProductPrice', '@item.ProductPictureUrl', '@item.Published','@item.ProductId'
+                                )" class="btn btn-xs btn-info">
+                            Изменить
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" onclick="ProductDelete('@item.ProductId','@item.ProductName')" class="btn btn-xs btn-danger">Удалить</button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+        <p>
+            <a onclick="ShowCreateProductDialog()" class="btn btn-primary">Добавить товар</a>
+        </p>
+    </table>
+</div>
+
+<script>
+    function ProductDelete(prodId,ProductName) {
+        $("#prodDelSpan").text(prodId);
+        $("#prodDelSpanName").text(ProductName);
+        $("#DeleteProductDialog").modal('show');
+    }
+    function DeleteProduct(prodId) {
+        var id = prodId.text();
+        console.log(id);
+        $.post('@Url.Action("DeleteProduct", "Admin")', { id: id },
+          function (data) {            
+              $("#ProductTable").load('/Admin/GetProductsByCatName?id=' + $("#catNameSpan").text());
+              $("#DeleteProductDialog").modal('hide');
+          })
+    }
+</script>

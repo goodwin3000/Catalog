@@ -1,0 +1,62 @@
+﻿/*body{
+ padding:50px 0 ;
+     background: url(http://images.wisegeek.com/factory-with-pipes.jpg) no-repeat center center fixed;
+      background-size: cover; 
+        
+}
+.content-wrapper{
+    background-color: rgba(193, 185, 185, 0.75);
+}*/
+
+.widget, .admin-mainConfig {
+    margin: 0px;
+    padding-bottom: 20px;
+}
+
+.widget-default img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.widgetTable td {
+    max-width: 900px;
+}
+
+.nav-list {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-bottom: 0;
+}
+
+.ProductItem-holder img {
+    min-height: 160px;
+}
+
+.tree {
+    font-size: 20px;
+}
+
+    .tree a {
+        color: #1CBFE6;
+    }
+
+.product-info .description {
+    padding-bottom: 15px;
+    border-bottom: 1px #ECECEC solid;
+}
+
+.price {
+    font-size: 22px;
+    color: #9cd70e;
+    font-weight: 600;
+}
+
+.post-text-area {
+    width: 100%;
+}
+#menu{
+border : none;
+background-color:white;
+background-image:none;
+}

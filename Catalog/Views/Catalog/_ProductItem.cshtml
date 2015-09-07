@@ -1,0 +1,31 @@
+﻿@model CatalogLib.Models.Product
+@using System.Globalization
+@{ 
+    CultureInfo ua = new CultureInfo("uk-UA");
+    ua = (CultureInfo)ua.Clone();
+    ua.NumberFormat.CurrencyPositivePattern = 3;
+    ua.NumberFormat.CurrencyNegativePattern = 3;
+}
+<div class="col-md-4 col-sm-6 ProductItem-holder">
+    <div class="thumbnail">
+        <a href="@Model.CategoryLinkName/@Model.ProductId">
+    <img src="@Model.ProductPictureUrl" alt="@Model.ProductName"> 
+        </a>
+        <div class="caption">
+            <div class="pull-right">
+                <h4> @Model.ProductPrice.ToString("C", ua)</h4>
+            </div>
+            <h4 class="text-left"><a  href="@Model.CategoryLinkName/@Model.ProductId">@Model.ProductName</a></h4>
+            <a href="@Model.CategoryLinkName/@Model.ProductId" class="btn btn-primary  pull-right">Купить</a>
+            <div class="description text-left">
+                <p> @Model.ProductDescription</p>
+            </div>
+           
+        </div>
+      
+    </div>
+   
+</div>
+@*<p>
+      <a href="@Model.CategoryLinkName/@Model.ProductId" class="btn btn-default">Подробнее</a>
+    </p>*@

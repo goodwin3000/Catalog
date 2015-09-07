@@ -1,0 +1,6 @@
+﻿@using Catalog.HtmlHelpers;
+@model List<CatalogLib.Models.Category>
+
+<div >
+    @Html.CatalogTreeMenu(Model, "/catalog/")
+</div>

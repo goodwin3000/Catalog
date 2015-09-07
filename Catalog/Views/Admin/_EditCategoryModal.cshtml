@@ -1,0 +1,108 @@
+﻿
+<div id="EditCategoryDialog" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Редактировать категорию</h4>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <div class="form-group">
+                        <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                        <div class="col-md-8">
+                            <span>Название категории</span><input id="edcatname" name="CategoryName" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                        <div class="col-md-8">
+                            <span>Название ссылки</span>
+                            <input id="edcatnamelink" name="CategoryLinkName" type="text"  class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-phone-square bigicon"></i></span>
+                        <div class="col-md-8">
+                            <span>Родительская категория</span>
+                            <div id="EditCategoryDropDownId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-envelope-o bigicon"></i></span>
+                        <div class="col-md-8">
+                            <span>Описание</span>
+                            <input id="edcatDesc" name="CategoryDescription" type="text" placeholder="Описание" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-phone-square bigicon"></i></span>
+                        <div class="col-md-8">
+                            <span>Адрес картинки</span>
+                            <input id="edcatpic" name="CategoryPictureUrl" type="text" placeholder="Адрес картинки" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-phone-square bigicon"></i></span>
+                        <div class="col-md-8">
+                            <span>Опубликовать</span>
+                            <input id="edcatPublishFlag" name="Published" type="checkbox" value="">
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                <button type="button" onclick="EditCategory()" class="btn btn-primary">Сохранить</button>
+            </div>
+            <div>
+                <span id="CatCreateResult"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function ShowEditCategoryDialog(CategoryName, CategoryLinkName, CategoryDescription, CategoryPictureUrl, Published,parentId)
+    {
+        $("#EditCategoryDropDownId").load('/Admin/CategoryDropDownList?todo=EditCategoryModelBox&SelectedValue=' + parentId);
+        $("#edcatname").val(CategoryName);
+        $("#edcatnamelink").val(CategoryLinkName);
+        $("#edcatDesc").val(CategoryDescription);
+        $("#edcatpic").val(CategoryPictureUrl);
+        $("#edcatPublishFlag").prop("checked",Published);
+       
+
+       $("#EditCategoryDialog").modal('show');      
+        return false;
+   }
+   function EditCategory()
+   {
+       var CategoryName = $("#edcatname[name='CategoryName']").val();
+       var CategoryLinkName = $("#edcatnamelink[name='CategoryLinkName']").val();
+       var CategoryDescription = $("#edcatDesc[name='CategoryDescription']").val();
+       var CategoryPictureUrl = $("#edcatpic[name='CategoryPictureUrl']").val();
+       var Published = $("#edcatPublishFlag[name='Published']").prop("checked");
+       var ParentId = $('select[name=EditCategoryModelBox] option:selected').val();
+       var Category =
+           {
+               "CategoryName": CategoryName,
+               "CategoryLinkName": CategoryLinkName,
+               "CategoryDescription": CategoryDescription,
+               "CategoryPictureUrl": CategoryPictureUrl,
+               "Published": Published,
+               "ParentId": ParentId
+           }
+      
+
+       $.post('@Url.Action("EditCategory", "Admin")', Category,
+           function (data)
+           {
+               $("#CatEditResult").text("Категория успешно создана");
+               $("#CategoryTable").load('/Admin/GetCategory');
+               $("#EditCategoryDialog").modal('hide');
+           })
+   }
+</script>

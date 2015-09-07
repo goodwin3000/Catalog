@@ -1,0 +1,10 @@
+﻿@model Catalog.Models.OrderListViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{Html.RenderPartial("_OrderTable",Model.Orders);}
+@Html.Pagination(Model.Pagination,u=>Url.Action("Index", new{page=u}))
+

@@ -1,0 +1,41 @@
+﻿@model List<CatalogLib.Models.Widget>
+
+<table class="table table-bordered table-hover table-striped widgetTable">
+    <thead>
+        <tr>
+            <th>Заголовок</th>
+            <th>Содержание</th>
+           
+            <th>Опубликовать</th>
+            <th>Стиль</th>
+            <th>Приоритет</th>
+            <th>Изменить</th>
+            <th>удалить</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>
+                    <div class="@item.Style">
+                        @Html.Raw(@item.Text)
+                    </div>
+                </td>
+              
+                <td>@item.Published</td>
+                <td>@item.Style</td>
+                <td>@item.Preority</td>
+                <td>
+                    <a href="/widgets/EditWidget/@item.id" class="btn btn-primary">Изменить</a>
+                </td>
+                <td>
+                    <a href="/widgets/DeleteWidget/@item.id" class="btn btn-primary"> Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/widgets/CreateWidget/?position=@CatalogLib.Models.WidgetPosition.Top&columnId=1" class="btn btn-primary">Добавить Widget</a>
+  

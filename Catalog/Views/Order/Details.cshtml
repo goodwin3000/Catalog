@@ -1,0 +1,76 @@
+﻿@model CatalogLib.Models.Order
+
+@{   
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PayOutOption)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PayOutOption.OptionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrerDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrerDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerFullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerFullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostAddress)
+        </dd>
+
+        <dt>
+           
+        </dt>
+
+        <dd>
+            <a href="/Order/Edit/@Model.OrderId" class="btn btn-primary">Изменить</a>
+        </dd>
+
+    </dl>
+  
+</div>
+
+@{ Html.RenderPartial("_ProductTable",Model.OrderProducts);}
+<p>
+    @Html.ActionLink("Изменить", "Edit", new { id = Model.OrderId }) |
+    @Html.ActionLink("Назад", "Index")
+</p>

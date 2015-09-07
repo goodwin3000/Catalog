@@ -1,0 +1,67 @@
+﻿@model CatalogLib.Models.OrderProduct
+
+@{
+  
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<h3>Удалить продукт?</h3>
+<div>
+    <h4>Инфо</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.CustomerFullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Order.CustomerFullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.ProductId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.ProductId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.ProductName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.ProductDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.ProductDescription)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.ProductPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.ProductPrice)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("Назад", "Index")
+        </div>
+    }
+</div>

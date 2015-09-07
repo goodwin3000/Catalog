@@ -1,0 +1,54 @@
+﻿@model IEnumerable<CatalogLib.Models.OrderProduct>
+
+
+<table class="table table-bordered table-hover table-striped widgetTable">
+    <thead>
+        <tr>
+            <th>@Html.LabelFor(Model => Model.First().Product.ProductId)</th>
+            <th>@Html.LabelFor(Model => Model.First().Product.ProductName)</th>
+            <th>@Html.LabelFor(Model => Model.First().Product.ProductDescription)</th>
+            <th>@Html.LabelFor(Model => Model.First().Product.ProductPrice)</th>
+            <th>@Html.LabelFor(Model => Model.First().Quantity)</th>
+            <th>@Html.LabelFor(Model => Model.First().TotallPrice)</th>
+            <th>@Html.LabelFor(Model => Model.First().Product.Category.CategoryName)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr data-href="/Catalog/@item.Product.CategoryLinkName/@item.ProductId">
+                <td>@item.Product.ProductId</td>
+                <td>@item.Product.ProductName</td>
+                <td>@item.Product.ProductDescription</td>
+                <td>@item.Product.ProductPrice</td>
+                <td>@item.Quantity</td>
+                <td>@item.TotallPrice</td>
+                <td>@item.Product.Category.CategoryName</td>
+
+                    <td>
+                        <a href="/Order/DeleteProduct/@item.Id" class="btn btn-primary"> Удалить</a>
+                    </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+@if (Model.Count()>0)
+{
+    <row>
+        <div class="panel-footer">
+            <div class="row text-center">
+                <div class="col-xs-7">
+                    <h4 class="text-right">Всего: <strong>@Model.First().Order.TotalPrice</strong></h4>
+                </div>
+            </div>
+        </div>
+    </row>
+}
+
+<script>
+$('tr[data-href]').on("click", function() {
+    document.location = $(this).data('href');
+});
+</script>
+

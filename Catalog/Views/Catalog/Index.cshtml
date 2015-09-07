@@ -1,0 +1,25 @@
+﻿@model Catalog.Models.CatalogCategoryModel
+
+@{
+    ViewBag.Title = "Каталог";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model != null)
+{
+    <h2>@Model.Category.CategoryName</h2>
+    if (Model.Category.SubCategories.Count > 0)
+    {
+        <h3>Подкатегории:</h3>
+@Html.Partial("_CategoryList", Model.Category.SubCategories.Where(c=>c.Published==true));
+    }
+    if (Model.Products.Count > 0)
+    {<h3>Товары категории</h3>
+@Html.Partial("_ProductList", @Model.Products)
+       @Html.Pagination(Model.Pagination, u => Url.Action("Index", new { page = u }))
+    }
+}
+else
+{
+    <h3>Выберете интересующую вас категорию</h3>
+}

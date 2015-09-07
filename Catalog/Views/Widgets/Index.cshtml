@@ -1,0 +1,79 @@
+﻿@model Catalog.Models.MainPageConfigurationModel
+@{
+
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@if (@Model.Widgets == null)
+{
+    <a class="btn btn-primary">Добавить Widget</a>
+    return;
+}
+
+<div class="row admin-mainConfig">
+
+    @*Top*@
+
+    <div class="col-lg-12">
+        <h3>Топ widget</h3>
+        @Html.Partial("_widgetTable", Model.Widgets.Where(w => w.Position == CatalogLib.Models.WidgetPosition.Top).OrderByDescending(w => w.Preority).ToList())
+     
+    </div>
+
+
+    @*Middle*@
+
+
+    @foreach (var items in Model.Widgets.Where(w => w.Position == CatalogLib.Models.WidgetPosition.Middle).OrderBy(w => w.ColumnNumber).GroupBy(w => w.ColumnNumber))
+    {
+        <div class="col-lg-12">
+            <h3>@items.Key колонка</h3>
+            <table class="table table-bordered table-hover table-striped widgetTable">
+                <thead>
+                    <tr>
+                        <th>Заголовок</th>
+                        <th>Содержание</th>
+                        
+                        <th>Опубликовать</th>
+                        <th>Стиль</th>
+                        <th>Приоритет</th>
+                        <th>Изменить</th>
+                        <th>удалить</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in items.OrderByDescending(w => w.Preority))
+                    {
+                        <tr>
+                            <td>@item.Title</td>
+                            <td>
+                                <div class="@item.Style">
+                                    @Html.Raw(@item.Text)
+                                </div>
+                            </td>
+                          
+                            <td>@item.Published</td>
+                            <td>@item.Style</td>
+                            <td>@item.Preority</td>
+                            <td>
+                                <a href="/widgets/EditWidget/@item.id" class="btn btn-primary">Изменить</a>
+                            </td>
+                            <td>
+                                <a href="/widgets/DeleteWidget/@item.id" class="btn btn-primary"> Удалить</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <a href="/widgets/CreateWidget/?position=@CatalogLib.Models.WidgetPosition.Middle&columnId=@items.Key" class="btn btn-primary">Добавить Widget</a>
+        </div>
+    }
+
+    @*Bottom*@
+    <div class="col-lg-12">
+        <h3>Нижниый widget</h3>
+        @Html.Partial("_widgetTable", Model.Widgets.Where(w => w.Position == CatalogLib.Models.WidgetPosition.Bottom).OrderByDescending(w => w.Preority).ToList())
+      
+    </div>
+
+</div>

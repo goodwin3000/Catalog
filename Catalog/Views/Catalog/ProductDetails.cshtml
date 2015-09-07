@@ -1,0 +1,106 @@
+﻿@model CatalogLib.Models.Product
+@using System.Globalization
+@{
+    ViewBag.Title = "Информаци о "+Model.ProductName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row product-info">
+    <div class="col-md-6 product-pic"><div class="thumbnail">
+    <img src="@Model.ProductPictureUrl" class="img-responsive" alt="">
+</div></div>
+    <div class="col-md-5">
+        
+            <h3>@Model.ProductName</h3>
+            <p class="description">
+                @Model.ProductDescription
+            </p>
+            @{
+                CultureInfo ua = new CultureInfo("uk-UA");
+                ua = (CultureInfo)ua.Clone();
+                ua.NumberFormat.CurrencyPositivePattern = 3;
+                ua.NumberFormat.CurrencyNegativePattern = 3;
+                <span class="pull-left">
+                    <span class="price">@Model.ProductPrice.ToString("C", ua)</span>
+                </span>
+            }
+            @*<span class="pull-right">
+                <a href="/Shop/Buy/@Model.ProductId" class="btn btn-primary">Купить</a>
+            </span>*@
+
+        <span class="pull-right">
+           <button class="btn btn-primary" onclick="AddToCart(@Model.ProductId,1)">В корзину</button>
+        </span>
+        
+    </div>
+    </div>
+<div id="cartDialog"   class="modal fade" role="dialog">
+    <div id="cartDialogContent" class="modal-dialog">
+
+    </div>
+</div>
+    <script>
+        function ShowCart()
+        {          
+            $("#cartDialogContent").load('/shop/cart/');
+            $("#cartDialog").modal('show');         
+        }
+        function HideCart()
+        {
+            $("#cartDialog").modal('hide');
+        }
+        function RemoveFromCart(productId)
+        {
+            var data = new FormData();
+            data.append("productId", productId);
+            $.ajax({
+                url: '@Url.Action("RemoveFromCart", "Shop")',
+                type: 'POST',
+                data: data,
+                processData: false,
+
+                contentType: false,
+                success: function (data) {
+                    if (data == -1) {
+
+                    }
+
+                    else {
+                        ShowCart();
+                    }
+                },
+                error: function () {
+
+                }
+            });
+
+        }
+        function AddToCart(productId, quantity) {
+            var data = new FormData();
+            data.append("productId", productId);
+            data.append("quantity", quantity);
+            $.ajax({
+                url: '@Url.Action("AddToCart", "Shop")',
+                type: 'POST',
+                data: data,
+                processData: false,
+
+                contentType: false,
+                success: function (data) {
+                    if (data == -1) {
+
+                    }
+
+                    else {
+                        ShowCart();
+
+                    }
+                },
+                error: function () {
+                  
+                }
+            });
+        }
+    </script>

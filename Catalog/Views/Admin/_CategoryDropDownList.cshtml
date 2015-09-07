@@ -1,0 +1,16 @@
+﻿@*@model IEnumerable<CatalogLib.Models.Category>*@
+   @model  Catalog.Models.AdminDropDownCategoryListModel
+
+<select name="@ViewBag.SelectedValue" class="form-control">
+    @foreach (var item in Model.Category)
+    {
+        if (@item.CategoryLinkName == Model.SelectedValue)
+        {
+            <option value="@item.CategoryLinkName" selected="selected">@item.CategoryLinkName</option>
+        }
+        else
+        {
+        <option value="@item.CategoryLinkName">@item.CategoryLinkName</option>
+        }
+    }
+</select>

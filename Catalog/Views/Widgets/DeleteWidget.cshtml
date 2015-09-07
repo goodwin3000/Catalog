@@ -1,0 +1,66 @@
+﻿@model CatalogLib.Models.Widget
+
+@{
+ 
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<h3>Вы уверены что хотите удалить?</h3>
+<div>
+   
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+
+        <dd>
+           @Html.Raw(Model.Text)  
+        </dd>
+
+      
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ColumnNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ColumnNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Style)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Style)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Published)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Published)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("Настойка главной страницы", "index")
+        </div>
+    }
+</div>

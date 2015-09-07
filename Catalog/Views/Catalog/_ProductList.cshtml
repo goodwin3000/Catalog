@@ -1,0 +1,9 @@
+﻿@model IEnumerable<CatalogLib.Models.Product>
+<div class="row text-center">
+
+   @foreach (var item in Model)
+   {
+       @Html.Partial("_ProductItem", item)
+   }
+
+</div>

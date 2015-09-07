@@ -1,0 +1,44 @@
+﻿@model Catalog.Models.HomePageModel
+@{
+    ViewBag.Title = "Главная";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (@Model.Widgets == null)
+{
+
+    return;
+}
+ @*Top Widget*@
+<div class="row widget">
+    @foreach (var item in Model.Widgets.Where(w => w.Position == CatalogLib.Models.WidgetPosition.Top).OrderByDescending(w => w.Preority))
+    {
+        <div class="col-lg-12">
+            @{Html.RenderPartial("_widget", item); }
+        </div>
+                }
+</div>
+@*Middle Widget*@
+<div class="row">
+    @foreach (var items in Model.Widgets.Where(w => w.Position == CatalogLib.Models.WidgetPosition.Middle).OrderBy(w => w.ColumnNumber).GroupBy(w => w.ColumnNumber))
+    {
+        <div class="col-sm-4 col-lg-4 col-md-4">
+            @foreach (var item in items.OrderByDescending(w => w.Preority))
+                {
+                <div class="row widget">
+                    @{Html.RenderPartial("_widget", item); }
+                </div>
+                        }
+
+        </div>
+                        }
+</div>
+@*Bottom Widget*@
+<div class="row widget">
+    @foreach (var item in Model.Widgets.Where(w => w.Position == CatalogLib.Models.WidgetPosition.Bottom).OrderByDescending(w => w.Preority))
+    {
+        <div class="col-lg-12">
+            @{Html.RenderPartial("_widget", item); }
+        </div>
+   }
+</div>

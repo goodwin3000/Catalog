@@ -1,0 +1,14 @@
+﻿@model CatalogLib.Models.Order
+
+@{
+    ViewBag.Title = "Спасибо за заказ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Спасибо за заказ!</h2>
+
+<div>
+    <h3>Номер вашего заказа: @Model.OrderId</h3>
+    <hr />
+    <h4>В ближайшее время с вами свяжется наш менеджер для уточнения деталей.</h4>
+</div>

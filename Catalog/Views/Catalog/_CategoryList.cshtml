@@ -1,0 +1,19 @@
+﻿@model IEnumerable<CatalogLib.Models.Category>
+<div class="row text-center">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 col-sm-6 ProductItem-holder">
+            <div class="thumbnail">
+                <img src="@item.CategoryPictureUrl" alt="@item.CategoryName">
+                <div class="caption">
+                    <h3>@item.CategoryName</h3>
+                    <p>@item.CategoryDescription</p>                  
+                        <a href="/Catalog/@item.CategoryLinkName">Перейти к категории</a>                    
+                </div>
+            </div>
+        </div>        
+    }
+</div>   
+ 
+
+

@@ -1,0 +1,50 @@
+﻿@model IEnumerable <CatalogLib.Models.Order>
+
+
+<table class="table table-bordered table-hover table-striped widgetTable">
+    <thead>
+        <tr>
+            <th>@Html.LabelFor(Model=>Model.First().OrderId)</th>
+            <th>@Html.LabelFor(Model => Model.First().OrerDate)</th>
+            <th>@Html.LabelFor(Model => Model.First().CustomerFullName)</th>
+            <th>@Html.LabelFor(Model => Model.First().Phone)</th>
+            <th>@Html.LabelFor(Model => Model.First().PostAddress)</th>
+            <th>@Html.LabelFor(Model => Model.First().PayOutOption)</th>
+            <th>@Html.LabelFor(Model => Model.First().Email)</th>
+            <th>@Html.LabelFor(Model => Model.First().OrderStatus)</th>
+          
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr data-href="Order/Details/@item.OrderId">
+                <td>@item.OrderId</td>
+                <td>@item.OrerDate</td>
+                <td>@item.CustomerFullName</td>
+                <td>@item.Phone</td>
+                <td>@item.PostAddress</td>
+                <td>@item.PayOutOption.OptionName</td>
+                <td>@item.Email</td>
+                @if(@item.OrderStatus!=null)
+                {
+                <th>@item.OrderStatus.Status</th>
+                }
+                else
+                {
+                <th>---</th>
+                }
+            
+                <td>
+                    <a href="/Order/DeleteOrder/@item.OrderId" class="btn btn-primary"> Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+   
+</table>
+<script>
+$('tr[data-href]').on("click", function() {
+    document.location = $(this).data('href');
+});
+</script>

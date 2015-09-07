@@ -1,0 +1,27 @@
+﻿@model Catalog.Models.AdminDashBoardModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+
+<div id="CategoryTable" class="col-lg-12">
+    
+  @{Html.RenderPartial("_GetCategory", Model.Category);}
+    
+</div>
+<div id="ProductTable" class="col-lg-12">
+    @if (Model.Products != null)
+    {
+  Html.RenderPartial("_GetProducts", Model.Products);
+        }
+</div>
+@{ 
+    Html.RenderPartial("_CreateCategoryModal");
+    Html.RenderPartial("_CreateProductModal");
+    Html.RenderPartial("_EditCategoryModal");
+    Html.RenderPartial("_CategoryDeleteConfirm");
+    Html.RenderPartial("_EditProductModal");
+    Html.RenderPartial("_ProductDeleteConfirm");
+        }

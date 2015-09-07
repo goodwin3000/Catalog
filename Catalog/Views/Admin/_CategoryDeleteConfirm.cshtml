@@ -1,0 +1,17 @@
+﻿<div id="DeleteCategoryDialog" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Удаление категории </h4>
+            </div>
+            <div class="modal-body">
+                <p>Удалить категорию  <span id="catDelSpan"></span> ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                <button type="button" onclick="DeleteCategory($('#catDelSpan'))" class="btn btn-primary">Удалить</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
