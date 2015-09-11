@@ -2,7 +2,7 @@
 Simple catalog-shop example.
 Каталог-магазин, шаблон без дизайна.
 
-Пример:http://185.41.187.126:83/
+Пример:http://HotTset.ga
 Вход в админ панель:
 admin@admin.net
 пароль: admin
