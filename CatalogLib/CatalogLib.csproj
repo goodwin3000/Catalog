@@ -67,7 +67,6 @@
     <Compile Include="Abstraction\ICatalogRepository.cs" />
     <Compile Include="Abstraction\IRepository.cs" />
     <Compile Include="Concrete\CatalogRepository.cs" />
-    <Compile Include="Concrete\SqlCatalogRepository.cs" />
     <Compile Include="Context\DataContext.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\CartItem.cs" />
